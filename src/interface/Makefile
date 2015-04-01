@@ -1,0 +1,23 @@
+#	${CC} ${CFLAGS} gtkwindow.h gtkwindow.c `pkg-config --libs --cflags gtk+-2.0`
+
+#
+# Compiler
+CC=gcc
+
+# Flags
+CFLAGS=-c -Wall `pkg-config --libs --cflags gtk+-2.0`
+
+
+SOURCES=gtkwindow.c
+
+OBJECTS=$(SOURCES:.c=.o)
+
+interface.o: $(OBJECTS) 
+	ld -r -o $@ $(OBJECTS)  
+
+
+.c.o: 
+	$(CC) $(CFLAGS) $< -o $@
+
+clean:
+	rm -rf *.o
