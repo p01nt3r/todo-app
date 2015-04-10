@@ -631,16 +631,15 @@ ac_includes_default="\
 # include <unistd.h>
 #endif"
 
-ac_unique_file="."
 ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
-USE_GTK_FALSE
-USE_GTK_TRUE
 GTK_LIBS
 GTK_CFLAGS
 PKG_CONFIG
+USE_GTK_FALSE
+USE_GTK_TRUE
 MAINT
 MAINTAINER_MODE_FALSE
 MAINTAINER_MODE_TRUE
@@ -770,8 +769,8 @@ with_gnu_ld
 with_sysroot
 enable_libtool_lock
 enable_maintainer_mode
-enable_gtktest
 enable_gtk
+enable_gtktest
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1414,8 +1413,8 @@ Optional Features:
   --enable-maintainer-mode
                           enable make rules and dependencies not useful (and
                           sometimes confusing) to the casual installer
-  --disable-gtktest       do not try to compile and run a test GTK+ program
   --enable-gtk            Turn on GTK+ support (default is no)
+  --disable-gtktest       do not try to compile and run a test GTK+ program
 
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
@@ -8073,6 +8072,10 @@ _lt_linker_boilerplate=`cat conftest.err`
 $RM -r conftest*
 
 
+## CAVEAT EMPTOR:
+## There is no encapsulation within the following macros, do not change
+## the running order or otherwise move them around unless you know exactly
+## what you are doing...
 if test -n "$compiler"; then
 
 lt_prog_compiler_no_builtin_flag=
@@ -11878,16 +11881,34 @@ fi
 ac_config_headers="$ac_config_headers config.h"
 
 
-#SRC dir
 
-
-
-ac_config_files="$ac_config_files Makefile interface/Makefile model/Makefile"
-
+ac_config_files="$ac_config_files Makefile src/Makefile src/interface/Makefile src/model/Makefile"
+ # interface/console/Makefile)
 
 #GTK
 GTK_REQUIRED_VERSION=2.0.0
-# Check whether --enable-gtktest was given.
+
+# Check whether --enable-gtk was given.
+if test "${enable_gtk+set}" = set; then :
+  enableval=$enable_gtk; :
+else
+  use_gtk=no
+fi
+
+#AC_DEFINE(USE_GTK, if $gtk=true then 1 else 0 fi, [use GTK+ support])
+ if test "$use_gtk" = "yes"; then
+  USE_GTK_TRUE=
+  USE_GTK_FALSE='#'
+else
+  USE_GTK_TRUE='#'
+  USE_GTK_FALSE=
+fi
+
+
+#AM_PATH_GTK_2_0($GTK_REQUIRED_VERSION,,AC_MSG_ERROR(windoe-default needs GTK+-2))
+
+if test "$use_gtk" != "no"; then :
+  # Check whether --enable-gtktest was given.
 if test "${enable_gtktest+set}" = set; then :
   enableval=$enable_gtktest;
 else
@@ -12088,7 +12109,7 @@ fi
   if test "x$no_gtk" = x ; then
      { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes (version $gtk_config_major_version.$gtk_config_minor_version.$gtk_config_micro_version)" >&5
 $as_echo "yes (version $gtk_config_major_version.$gtk_config_minor_version.$gtk_config_micro_version)" >&6; }
-     :
+     use_gtk=yes
   else
      { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
@@ -12140,32 +12161,18 @@ rm -f core conftest.err conftest.$ac_objext \
      fi
      GTK_CFLAGS=""
      GTK_LIBS=""
-     as_fn_error $? "windoe-default needs GTK+-2" "$LINENO" 5
+     if test "$enable_gui" = "yes"; then :
+  as_fn_error $? "GTK+-2.0 required, but not found." "$LINENO" 5
+else
+  use_gtk=no
+fi
+
   fi
 
 
   rm -f conf.gtktest
 
 
-# Check whether --enable-gtk was given.
-if test "${enable_gtk+set}" = set; then :
-  enableval=$enable_gtk; ac_enable_gtk=$enableval
-else
-  ac_enable_gtk=no
-fi
-
-if test "$ac_enable_gtk" = yes; then
-
-$as_echo "#define USE_GTK 0" >>confdefs.h
-
-fi
-
- if test $ac_enable_gtk = yes; then
-  USE_GTK_TRUE=
-  USE_GTK_FALSE='#'
-else
-  USE_GTK_TRUE='#'
-  USE_GTK_FALSE=
 fi
 
 
@@ -12261,6 +12268,7 @@ esac
 else
   RANLIB="$ac_cv_prog_RANLIB"
 fi
+
 
 
 #Check for programs
@@ -13822,8 +13830,9 @@ do
     "libtool") CONFIG_COMMANDS="$CONFIG_COMMANDS libtool" ;;
     "config.h") CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
-    "interface/Makefile") CONFIG_FILES="$CONFIG_FILES interface/Makefile" ;;
-    "model/Makefile") CONFIG_FILES="$CONFIG_FILES model/Makefile" ;;
+    "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
+    "src/interface/Makefile") CONFIG_FILES="$CONFIG_FILES src/interface/Makefile" ;;
+    "src/model/Makefile") CONFIG_FILES="$CONFIG_FILES src/model/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

@@ -2871,40 +2871,55 @@ m4trace:configure.ac:14: -1- m4_pattern_allow([^MAINTAINER_MODE_FALSE$])
 m4trace:configure.ac:14: -1- _AM_SUBST_NOTMAKE([MAINTAINER_MODE_TRUE])
 m4trace:configure.ac:14: -1- _AM_SUBST_NOTMAKE([MAINTAINER_MODE_FALSE])
 m4trace:configure.ac:14: -1- m4_pattern_allow([^MAINT$])
-m4trace:configure.ac:18: -1- AM_PATH_GTK_2_0([$GTK_REQUIRED_VERSION], [], [as_fn_error $? "windoe-default needs GTK+-2" "$LINENO" 5])
-m4trace:configure.ac:18: -1- m4_pattern_allow([^PKG_CONFIG$])
-m4trace:configure.ac:18: -1- _m4_warn([obsolete], [The macro `AC_TRY_RUN' is obsolete.
+m4trace:configure.ac:19: -1- _AM_CONFIG_MACRO_DIRS([m4])
+m4trace:configure.ac:29: -2- _m4_warn([obsolete], [The macro `AC_HELP_STRING' is obsolete.
+You should run autoupdate.], [../../lib/autoconf/general.m4:207: AC_HELP_STRING is expanded from...
+configure.ac:29: the top level])
+m4trace:configure.ac:33: -1- AM_CONDITIONAL([USE_GTK], [test "$use_gtk" = "yes"])
+m4trace:configure.ac:33: -1- m4_pattern_allow([^USE_GTK_TRUE$])
+m4trace:configure.ac:33: -1- m4_pattern_allow([^USE_GTK_FALSE$])
+m4trace:configure.ac:33: -1- _AM_SUBST_NOTMAKE([USE_GTK_TRUE])
+m4trace:configure.ac:33: -1- _AM_SUBST_NOTMAKE([USE_GTK_FALSE])
+m4trace:configure.ac:37: -1- AM_PATH_GTK_2_0([$GTK_REQUIRED_VERSION], [use_gtk=yes], [AS_IF([test "$enable_gui" = "yes"],      
+                                [AC_MSG_ERROR([GTK+-2.0 required, but not found.])],
+                                [use_gtk=no])
+                         ])
+m4trace:configure.ac:37: -1- m4_pattern_allow([^PKG_CONFIG$])
+m4trace:configure.ac:37: -1- _m4_warn([obsolete], [The macro `AC_TRY_RUN' is obsolete.
 You should run autoupdate.], [../../lib/autoconf/general.m4:2764: AC_TRY_RUN is expanded from...
 /usr/share/aclocal/gtk-2.0.m4:8: AM_PATH_GTK_2_0 is expanded from...
-configure.ac:18: the top level])
-m4trace:configure.ac:18: -1- _m4_warn([obsolete], [The macro `AC_TRY_LINK' is obsolete.
+../../lib/m4sugar/m4sh.m4:639: AS_IF is expanded from...
+configure.ac:37: the top level])
+m4trace:configure.ac:37: -1- _m4_warn([obsolete], [The macro `AC_TRY_LINK' is obsolete.
 You should run autoupdate.], [../../lib/autoconf/general.m4:2687: AC_TRY_LINK is expanded from...
 /usr/share/aclocal/gtk-2.0.m4:8: AM_PATH_GTK_2_0 is expanded from...
-configure.ac:18: the top level])
-m4trace:configure.ac:18: -1- m4_pattern_allow([^GTK_CFLAGS$])
-m4trace:configure.ac:18: -1- m4_pattern_allow([^GTK_LIBS$])
-m4trace:configure.ac:25: -1- AM_CONDITIONAL([DEBUG], [test x$GTK = xtrue])
-m4trace:configure.ac:25: -1- m4_pattern_allow([^DEBUG_TRUE$])
-m4trace:configure.ac:25: -1- m4_pattern_allow([^DEBUG_FALSE$])
-m4trace:configure.ac:25: -1- _AM_SUBST_NOTMAKE([DEBUG_TRUE])
-m4trace:configure.ac:25: -1- _AM_SUBST_NOTMAKE([DEBUG_FALSE])
-m4trace:configure.ac:28: -1- _AM_CONFIG_MACRO_DIRS([m4])
-m4trace:configure.ac:32: -1- m4_pattern_allow([^CC$])
-m4trace:configure.ac:32: -1- m4_pattern_allow([^CFLAGS$])
-m4trace:configure.ac:32: -1- m4_pattern_allow([^LDFLAGS$])
-m4trace:configure.ac:32: -1- m4_pattern_allow([^LIBS$])
-m4trace:configure.ac:32: -1- m4_pattern_allow([^CPPFLAGS$])
-m4trace:configure.ac:32: -1- m4_pattern_allow([^CC$])
-m4trace:configure.ac:32: -1- m4_pattern_allow([^CC$])
-m4trace:configure.ac:32: -1- m4_pattern_allow([^CC$])
-m4trace:configure.ac:32: -1- m4_pattern_allow([^CC$])
-m4trace:configure.ac:32: -1- m4_pattern_allow([^ac_ct_CC$])
-m4trace:configure.ac:34: -1- m4_pattern_allow([^LIB@&t@OBJS$])
-m4trace:configure.ac:34: -1- m4_pattern_allow([^LTLIBOBJS$])
-m4trace:configure.ac:34: -1- AM_CONDITIONAL([am__EXEEXT], [test -n "$EXEEXT"])
-m4trace:configure.ac:34: -1- m4_pattern_allow([^am__EXEEXT_TRUE$])
-m4trace:configure.ac:34: -1- m4_pattern_allow([^am__EXEEXT_FALSE$])
-m4trace:configure.ac:34: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_TRUE])
-m4trace:configure.ac:34: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_FALSE])
-m4trace:configure.ac:34: -1- _AM_OUTPUT_DEPENDENCY_COMMANDS
-m4trace:configure.ac:34: -1- _LT_PROG_LTMAIN
+../../lib/m4sugar/m4sh.m4:639: AS_IF is expanded from...
+configure.ac:37: the top level])
+m4trace:configure.ac:37: -1- m4_pattern_allow([^GTK_CFLAGS$])
+m4trace:configure.ac:37: -1- m4_pattern_allow([^GTK_LIBS$])
+m4trace:configure.ac:48: -1- m4_pattern_allow([^RANLIB$])
+m4trace:configure.ac:49: -1- AC_PROG_LIBTOOL
+m4trace:configure.ac:49: -1- _m4_warn([obsolete], [The macro `AC_PROG_LIBTOOL' is obsolete.
+You should run autoupdate.], [/usr/share/aclocal/libtool.m4:99: AC_PROG_LIBTOOL is expanded from...
+configure.ac:49: the top level])
+m4trace:configure.ac:49: -1- LT_INIT
+m4trace:configure.ac:52: -1- m4_pattern_allow([^CC$])
+m4trace:configure.ac:52: -1- m4_pattern_allow([^CFLAGS$])
+m4trace:configure.ac:52: -1- m4_pattern_allow([^LDFLAGS$])
+m4trace:configure.ac:52: -1- m4_pattern_allow([^LIBS$])
+m4trace:configure.ac:52: -1- m4_pattern_allow([^CPPFLAGS$])
+m4trace:configure.ac:52: -1- m4_pattern_allow([^CC$])
+m4trace:configure.ac:52: -1- m4_pattern_allow([^CC$])
+m4trace:configure.ac:52: -1- m4_pattern_allow([^CC$])
+m4trace:configure.ac:52: -1- m4_pattern_allow([^CC$])
+m4trace:configure.ac:52: -1- m4_pattern_allow([^ac_ct_CC$])
+m4trace:configure.ac:54: -1- m4_pattern_allow([^LIB@&t@OBJS$])
+m4trace:configure.ac:54: -1- m4_pattern_allow([^LTLIBOBJS$])
+m4trace:configure.ac:54: -1- AM_CONDITIONAL([am__EXEEXT], [test -n "$EXEEXT"])
+m4trace:configure.ac:54: -1- m4_pattern_allow([^am__EXEEXT_TRUE$])
+m4trace:configure.ac:54: -1- m4_pattern_allow([^am__EXEEXT_FALSE$])
+m4trace:configure.ac:54: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_TRUE])
+m4trace:configure.ac:54: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_FALSE])
+m4trace:configure.ac:54: -1- _AC_AM_CONFIG_HEADER_HOOK(["$ac_file"])
+m4trace:configure.ac:54: -1- _AM_OUTPUT_DEPENDENCY_COMMANDS
+m4trace:configure.ac:54: -1- _LT_PROG_LTMAIN

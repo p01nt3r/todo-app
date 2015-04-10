@@ -16,30 +16,36 @@ AM_MAINTAINER_MODE
 #header files
 AC_CONFIG_HEADERS([config.h])
 
-#SRC dir
-AC_CONFIG_SRCDIR([.])
-
 AC_CONFIG_MACRO_DIRS([m4])
-AC_CONFIG_FILES(Makefile interface/Makefile model/Makefile)
+AC_CONFIG_FILES(Makefile 
+                src/Makefile 
+                src/interface/Makefile 
+                src/model/Makefile) # interface/console/Makefile) 
 
 #GTK
 GTK_REQUIRED_VERSION=2.0.0
-AM_PATH_GTK_2_0($GTK_REQUIRED_VERSION,,AC_MSG_ERROR(windoe-default needs GTK+-2))
 
 AC_ARG_ENABLE([gtk],
             AC_HELP_STRING([--enable-gtk],[Turn on GTK+ support (default is no)]),
-            [case "${enableval}" in  
-             yes) gtk=true ;;  
-             no)  gtk=false ;;  
-             *) AC_MSG_ERROR([bad value ${enableval} for --enable-debug]) ;; esac],
-            [gtk=false])
-AC_DEFINE(USE_GTK, [test x$gtk = xtrue], [use GTK+ support])
-AM_CONDITIONAL([USE_GTK], [test x$gtk = xtrue])
+            [AC_DEFINE(use-gtk, 1, [use GTK+ support])],
+            [use_gtk=no])
+AM_CONDITIONAL([gtk], [test "$use_gtk" = "yes"])
 
+#AM_PATH_GTK_2_0($GTK_REQUIRED_VERSION,,AC_MSG_ERROR(windoe-default needs GTK+-2))
+
+AS_IF([test "$use_gtk" != "no"],
+      [AM_PATH_GTK_2_0($GTK_REQUIRED_VERSION,  
+                         [use_gtk=yes],    
+                         [AS_IF([test "$use_gtk" = "yes"],      
+                                [AC_MSG_ERROR([GTK+-2.0 required, but not found.])],
+                                [use_gtk=no])
+                         ])
+      ])
 
 
 #LIBS
 AC_PROG_RANLIB
+AC_PROG_LIBTOOL
 
 #Check for programs
 AC_PROG_CC

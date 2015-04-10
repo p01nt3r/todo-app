@@ -58,8 +58,5 @@
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
 
-/* use GTK+ support */
-#define USE_GTK 0
-
 /* Version number of package */
 #define VERSION "1.0"
