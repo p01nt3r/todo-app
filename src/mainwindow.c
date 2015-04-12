@@ -20,11 +20,10 @@
 #include <errno.h>
 
 #include <resources/constants.h>
+#include <interface/console/consolewindow.h>
 
 #ifdef USE_GTK
-#include <interface/gtk/gtkwindow.h>
-#else
-#include <interface/console/consolewindow.h>
+#include <interface/mygtk/gtkwindow.h>
 #endif
 
 
@@ -33,9 +32,8 @@ int main (int argc, char *argv[])
     printf("starting\n");
 #ifdef USE_GTK 
     showGtkMainWindow (&argc, argv);
-#else
-    showConsoleMainWindow();
 #endif
+    showConsoleMainWindow();
     printf("ended\n");
     return EXIT_SUCCESS; 
 }

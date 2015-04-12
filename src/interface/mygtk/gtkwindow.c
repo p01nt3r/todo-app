@@ -16,7 +16,7 @@
  * =====================================================================================
  */
 
-#include <interface/gtk/gtkwindow.h>
+#include <src/interface/mygtk/gtkwindow.h>
 
 int showGtkMainWindow (int* p_argc, char *argv[] )
 {

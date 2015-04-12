@@ -81,10 +81,10 @@ build_triplet = @build@
 host_triplet = @host@
 
 # GTK
-@USE_GTK_TRUE@am__append_1 = $(GTK_CFLAGS)
-@USE_GTK_TRUE@am__append_2 = $(GTK_LIBS)
-@USE_GTK_TRUE@am__append_3 = gtk/gtkwindow.c
-@USE_GTK_TRUE@am__append_4 = gtk/gtkwindow.h
+@USE_GTK_TRUE@am__append_1 = @GTK_CFLAGS@
+@USE_GTK_TRUE@am__append_2 = @GTK_LIBS@
+@USE_GTK_TRUE@am__append_3 = mygtk/gtkwindow.c
+@USE_GTK_TRUE@am__append_4 = $(srcdir)/mygtk/gtkwindow.h
 subdir = src/interface
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/depcomp $(am__include_HEADERS_DIST)
@@ -99,15 +99,42 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
-LTLIBRARIES = $(noinst_LTLIBRARIES)
+am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
+am__vpath_adj = case $$p in \
+    $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
+    *) f=$$p;; \
+  esac;
+am__strip_dir = f=`echo $$p | sed -e 's|^.*/||'`;
+am__install_max = 40
+am__nobase_strip_setup = \
+  srcdirstrip=`echo "$(srcdir)" | sed 's/[].[^$$\\*|]/\\\\&/g'`
+am__nobase_strip = \
+  for p in $$list; do echo "$$p"; done | sed -e "s|$$srcdirstrip/||"
+am__nobase_list = $(am__nobase_strip_setup); \
+  for p in $$list; do echo "$$p $$p"; done | \
+  sed "s| $$srcdirstrip/| |;"' / .*\//!s/ .*/ ./; s,\( .*\)/[^/]*$$,\1,' | \
+  $(AWK) 'BEGIN { files["."] = "" } { files[$$2] = files[$$2] " " $$1; \
+    if (++n[$$2] == $(am__install_max)) \
+      { print $$2, files[$$2]; n[$$2] = 0; files[$$2] = "" } } \
+    END { for (dir in files) print dir, files[dir] }'
+am__base_list = \
+  sed '$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;s/\n/ /g' | \
+  sed '$$!N;$$!N;$$!N;$$!N;s/\n/ /g'
+am__uninstall_files_from_dir = { \
+  test -z "$$files" \
+    || { test ! -d "$$dir" && test ! -f "$$dir" && test ! -r "$$dir"; } \
+    || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
+         $(am__cd) "$$dir" && rm -f $$files; }; \
+  }
+am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(includedir)"
+LTLIBRARIES = $(lib_LTLIBRARIES)
 am__DEPENDENCIES_1 =
-@USE_GTK_TRUE@am__DEPENDENCIES_2 = $(am__DEPENDENCIES_1)
-am__DEPENDENCIES_3 = $(am__DEPENDENCIES_2)
-libinterface_la_DEPENDENCIES = $(am__DEPENDENCIES_3)
+am__DEPENDENCIES_2 = $(am__DEPENDENCIES_1)
+libinterface_la_DEPENDENCIES = $(am__DEPENDENCIES_2)
 am__libinterface_la_SOURCES_DIST = console/consolewindow.c \
-	gtk/gtkwindow.c
+	mygtk/gtkwindow.c
 am__dirstamp = $(am__leading_dot)dirstamp
-@USE_GTK_TRUE@am__objects_1 = gtk/libinterface_la-gtkwindow.lo
+@USE_GTK_TRUE@am__objects_1 = mygtk/libinterface_la-gtkwindow.lo
 am_libinterface_la_OBJECTS = console/libinterface_la-consolewindow.lo \
 	$(am__objects_1)
 libinterface_la_OBJECTS = $(am_libinterface_la_OBJECTS)
@@ -160,35 +187,8 @@ am__can_run_installinfo = \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
-am__include_HEADERS_DIST = console/consolewindow.h gtk/gtkwindow.h
-am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
-am__vpath_adj = case $$p in \
-    $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
-    *) f=$$p;; \
-  esac;
-am__strip_dir = f=`echo $$p | sed -e 's|^.*/||'`;
-am__install_max = 40
-am__nobase_strip_setup = \
-  srcdirstrip=`echo "$(srcdir)" | sed 's/[].[^$$\\*|]/\\\\&/g'`
-am__nobase_strip = \
-  for p in $$list; do echo "$$p"; done | sed -e "s|$$srcdirstrip/||"
-am__nobase_list = $(am__nobase_strip_setup); \
-  for p in $$list; do echo "$$p $$p"; done | \
-  sed "s| $$srcdirstrip/| |;"' / .*\//!s/ .*/ ./; s,\( .*\)/[^/]*$$,\1,' | \
-  $(AWK) 'BEGIN { files["."] = "" } { files[$$2] = files[$$2] " " $$1; \
-    if (++n[$$2] == $(am__install_max)) \
-      { print $$2, files[$$2]; n[$$2] = 0; files[$$2] = "" } } \
-    END { for (dir in files) print dir, files[dir] }'
-am__base_list = \
-  sed '$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;s/\n/ /g' | \
-  sed '$$!N;$$!N;$$!N;$$!N;s/\n/ /g'
-am__uninstall_files_from_dir = { \
-  test -z "$$files" \
-    || { test ! -d "$$dir" && test ! -f "$$dir" && test ! -r "$$dir"; } \
-    || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
-         $(am__cd) "$$dir" && rm -f $$files; }; \
-  }
-am__installdirs = "$(DESTDIR)$(includedir)"
+am__include_HEADERS_DIST = $(srcdir)/console/consolewindow.h \
+	$(srcdir)/mygtk/gtkwindow.h
 HEADERS = $(include_HEADERS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
@@ -331,11 +331,11 @@ top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = subdir-objects
 AM_CFLAGS = $(am__append_1)
 LDADD = $(am__append_2)
-noinst_LTLIBRARIES = libinterface.la
+lib_LTLIBRARIES = libinterface.la
 
 # CONSOLE
 libinterface_la_SOURCES = console/consolewindow.c $(am__append_3)
-include_HEADERS = console/consolewindow.h $(am__append_4)
+include_HEADERS = $(srcdir)/console/consolewindow.h $(am__append_4)
 
 # FLAGS
 libinterface_la_CFLAGS = $(AM_CFLAGS)
@@ -375,9 +375,33 @@ $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
 
-clean-noinstLTLIBRARIES:
-	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
-	@list='$(noinst_LTLIBRARIES)'; \
+install-libLTLIBRARIES: $(lib_LTLIBRARIES)
+	@$(NORMAL_INSTALL)
+	@list='$(lib_LTLIBRARIES)'; test -n "$(libdir)" || list=; \
+	list2=; for p in $$list; do \
+	  if test -f $$p; then \
+	    list2="$$list2 $$p"; \
+	  else :; fi; \
+	done; \
+	test -z "$$list2" || { \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(libdir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(libdir)" || exit 1; \
+	  echo " $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL) $(INSTALL_STRIP_FLAG) $$list2 '$(DESTDIR)$(libdir)'"; \
+	  $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL) $(INSTALL_STRIP_FLAG) $$list2 "$(DESTDIR)$(libdir)"; \
+	}
+
+uninstall-libLTLIBRARIES:
+	@$(NORMAL_UNINSTALL)
+	@list='$(lib_LTLIBRARIES)'; test -n "$(libdir)" || list=; \
+	for p in $$list; do \
+	  $(am__strip_dir) \
+	  echo " $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=uninstall rm -f '$(DESTDIR)$(libdir)/$$f'"; \
+	  $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=uninstall rm -f "$(DESTDIR)$(libdir)/$$f"; \
+	done
+
+clean-libLTLIBRARIES:
+	-test -z "$(lib_LTLIBRARIES)" || rm -f $(lib_LTLIBRARIES)
+	@list='$(lib_LTLIBRARIES)'; \
 	locs=`for p in $$list; do echo $$p; done | \
 	      sed 's|^[^/]*$$|.|; s|/[^/]*$$||; s|$$|/so_locations|' | \
 	      sort -u`; \
@@ -393,30 +417,30 @@ console/$(DEPDIR)/$(am__dirstamp):
 	@: > console/$(DEPDIR)/$(am__dirstamp)
 console/libinterface_la-consolewindow.lo: console/$(am__dirstamp) \
 	console/$(DEPDIR)/$(am__dirstamp)
-gtk/$(am__dirstamp):
-	@$(MKDIR_P) gtk
-	@: > gtk/$(am__dirstamp)
-gtk/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) gtk/$(DEPDIR)
-	@: > gtk/$(DEPDIR)/$(am__dirstamp)
-gtk/libinterface_la-gtkwindow.lo: gtk/$(am__dirstamp) \
-	gtk/$(DEPDIR)/$(am__dirstamp)
+mygtk/$(am__dirstamp):
+	@$(MKDIR_P) mygtk
+	@: > mygtk/$(am__dirstamp)
+mygtk/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) mygtk/$(DEPDIR)
+	@: > mygtk/$(DEPDIR)/$(am__dirstamp)
+mygtk/libinterface_la-gtkwindow.lo: mygtk/$(am__dirstamp) \
+	mygtk/$(DEPDIR)/$(am__dirstamp)
 
 libinterface.la: $(libinterface_la_OBJECTS) $(libinterface_la_DEPENDENCIES) $(EXTRA_libinterface_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(libinterface_la_LINK)  $(libinterface_la_OBJECTS) $(libinterface_la_LIBADD) $(LIBS)
+	$(AM_V_CCLD)$(libinterface_la_LINK) -rpath $(libdir) $(libinterface_la_OBJECTS) $(libinterface_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
 	-rm -f console/*.$(OBJEXT)
 	-rm -f console/*.lo
-	-rm -f gtk/*.$(OBJEXT)
-	-rm -f gtk/*.lo
+	-rm -f mygtk/*.$(OBJEXT)
+	-rm -f mygtk/*.lo
 
 distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@console/$(DEPDIR)/libinterface_la-consolewindow.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@gtk/$(DEPDIR)/libinterface_la-gtkwindow.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@mygtk/$(DEPDIR)/libinterface_la-gtkwindow.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -449,12 +473,12 @@ console/libinterface_la-consolewindow.lo: console/consolewindow.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libinterface_la_CFLAGS) $(CFLAGS) -c -o console/libinterface_la-consolewindow.lo `test -f 'console/consolewindow.c' || echo '$(srcdir)/'`console/consolewindow.c
 
-gtk/libinterface_la-gtkwindow.lo: gtk/gtkwindow.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libinterface_la_CFLAGS) $(CFLAGS) -MT gtk/libinterface_la-gtkwindow.lo -MD -MP -MF gtk/$(DEPDIR)/libinterface_la-gtkwindow.Tpo -c -o gtk/libinterface_la-gtkwindow.lo `test -f 'gtk/gtkwindow.c' || echo '$(srcdir)/'`gtk/gtkwindow.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) gtk/$(DEPDIR)/libinterface_la-gtkwindow.Tpo gtk/$(DEPDIR)/libinterface_la-gtkwindow.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gtk/gtkwindow.c' object='gtk/libinterface_la-gtkwindow.lo' libtool=yes @AMDEPBACKSLASH@
+mygtk/libinterface_la-gtkwindow.lo: mygtk/gtkwindow.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libinterface_la_CFLAGS) $(CFLAGS) -MT mygtk/libinterface_la-gtkwindow.lo -MD -MP -MF mygtk/$(DEPDIR)/libinterface_la-gtkwindow.Tpo -c -o mygtk/libinterface_la-gtkwindow.lo `test -f 'mygtk/gtkwindow.c' || echo '$(srcdir)/'`mygtk/gtkwindow.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) mygtk/$(DEPDIR)/libinterface_la-gtkwindow.Tpo mygtk/$(DEPDIR)/libinterface_la-gtkwindow.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mygtk/gtkwindow.c' object='mygtk/libinterface_la-gtkwindow.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libinterface_la_CFLAGS) $(CFLAGS) -c -o gtk/libinterface_la-gtkwindow.lo `test -f 'gtk/gtkwindow.c' || echo '$(srcdir)/'`gtk/gtkwindow.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libinterface_la_CFLAGS) $(CFLAGS) -c -o mygtk/libinterface_la-gtkwindow.lo `test -f 'mygtk/gtkwindow.c' || echo '$(srcdir)/'`mygtk/gtkwindow.c
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -462,7 +486,7 @@ mostlyclean-libtool:
 clean-libtool:
 	-rm -rf .libs _libs
 	-rm -rf console/.libs console/_libs
-	-rm -rf gtk/.libs gtk/_libs
+	-rm -rf mygtk/.libs mygtk/_libs
 install-includeHEADERS: $(include_HEADERS)
 	@$(NORMAL_INSTALL)
 	@list='$(include_HEADERS)'; test -n "$(includedir)" || list=; \
@@ -571,7 +595,7 @@ check-am: all-am
 check: check-am
 all-am: Makefile $(LTLIBRARIES) $(HEADERS)
 installdirs:
-	for dir in "$(DESTDIR)$(includedir)"; do \
+	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(includedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -602,19 +626,19 @@ distclean-generic:
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
 	-rm -f console/$(DEPDIR)/$(am__dirstamp)
 	-rm -f console/$(am__dirstamp)
-	-rm -f gtk/$(DEPDIR)/$(am__dirstamp)
-	-rm -f gtk/$(am__dirstamp)
+	-rm -f mygtk/$(DEPDIR)/$(am__dirstamp)
+	-rm -f mygtk/$(am__dirstamp)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-generic clean-libtool clean-noinstLTLIBRARIES \
+clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-am
-	-rm -rf console/$(DEPDIR) gtk/$(DEPDIR)
+	-rm -rf console/$(DEPDIR) mygtk/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -637,7 +661,7 @@ install-dvi: install-dvi-am
 
 install-dvi-am:
 
-install-exec-am:
+install-exec-am: install-libLTLIBRARIES
 
 install-html: install-html-am
 
@@ -660,7 +684,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-	-rm -rf console/$(DEPDIR) gtk/$(DEPDIR)
+	-rm -rf console/$(DEPDIR) mygtk/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
@@ -677,24 +701,25 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-includeHEADERS
+uninstall-am: uninstall-includeHEADERS uninstall-libLTLIBRARIES
 
 .MAKE: install-am install-strip
 
 .PHONY: CTAGS GTAGS TAGS all all-am check check-am clean clean-generic \
-	clean-libtool clean-noinstLTLIBRARIES cscopelist-am ctags \
+	clean-libLTLIBRARIES clean-libtool cscopelist-am ctags \
 	ctags-am distclean distclean-compile distclean-generic \
 	distclean-libtool distclean-tags distdir dvi dvi-am html \
 	html-am info info-am install install-am install-data \
 	install-data-am install-dvi install-dvi-am install-exec \
 	install-exec-am install-html install-html-am \
 	install-includeHEADERS install-info install-info-am \
-	install-man install-pdf install-pdf-am install-ps \
-	install-ps-am install-strip installcheck installcheck-am \
-	installdirs maintainer-clean maintainer-clean-generic \
-	mostlyclean mostlyclean-compile mostlyclean-generic \
-	mostlyclean-libtool pdf pdf-am ps ps-am tags tags-am uninstall \
-	uninstall-am uninstall-includeHEADERS
+	install-libLTLIBRARIES install-man install-pdf install-pdf-am \
+	install-ps install-ps-am install-strip installcheck \
+	installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-compile \
+	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
+	tags tags-am uninstall uninstall-am uninstall-includeHEADERS \
+	uninstall-libLTLIBRARIES
 
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

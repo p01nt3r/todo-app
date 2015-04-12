@@ -21,24 +21,27 @@ AC_CONFIG_FILES(Makefile
                 src/Makefile 
                 src/interface/Makefile 
                 src/model/Makefile) # interface/console/Makefile) 
+#AC_CONFIG_SUBDIRS(src 
+#                  src/interface 
+#                  src/model)
 
 #GTK
 GTK_REQUIRED_VERSION=2.0.0
 
 AC_ARG_ENABLE([gtk],
             AC_HELP_STRING([--enable-gtk],[Turn on GTK+ support (default is no)]),
-            [AC_DEFINE(use-gtk, 1, [use GTK+ support])],
-            [use_gtk=no])
-AM_CONDITIONAL([gtk], [test "$use_gtk" = "yes"])
+            [use_gtk=true],
+            [use_gtk=false])
+AM_CONDITIONAL([USE_GTK], [test "$use_gtk" = "true"])
 
 #AM_PATH_GTK_2_0($GTK_REQUIRED_VERSION,,AC_MSG_ERROR(windoe-default needs GTK+-2))
 
-AS_IF([test "$use_gtk" != "no"],
+AS_IF([test "$use_gtk" != "false"],
       [AM_PATH_GTK_2_0($GTK_REQUIRED_VERSION,  
-                         [use_gtk=yes],    
-                         [AS_IF([test "$use_gtk" = "yes"],      
+                         [AC_DEFINE(USE_GTK, 1, [use GTK+ support])],    
+                         [AS_IF([test "$use_gtk" = "true"],      
                                 [AC_MSG_ERROR([GTK+-2.0 required, but not found.])],
-                                [use_gtk=no])
+                                [u_gtk=no])
                          ])
       ])
 
@@ -51,3 +54,4 @@ AC_PROG_LIBTOOL
 AC_PROG_CC
 
 AC_OUTPUT
+#(Makefile)

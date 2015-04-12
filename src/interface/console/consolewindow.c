@@ -16,7 +16,7 @@
  * =====================================================================================
  */
 
-#include <console/consolewindow.h>
+#include <src/interface/console/consolewindow.h>
 
 int showConsoleMainWindow()
 {

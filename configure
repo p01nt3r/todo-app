@@ -11884,19 +11884,21 @@ ac_config_headers="$ac_config_headers config.h"
 
 ac_config_files="$ac_config_files Makefile src/Makefile src/interface/Makefile src/model/Makefile"
  # interface/console/Makefile)
+#AC_CONFIG_SUBDIRS(src
+#                  src/interface
+#                  src/model)
 
 #GTK
 GTK_REQUIRED_VERSION=2.0.0
 
 # Check whether --enable-gtk was given.
 if test "${enable_gtk+set}" = set; then :
-  enableval=$enable_gtk; :
+  enableval=$enable_gtk; use_gtk=true
 else
-  use_gtk=no
+  use_gtk=false
 fi
 
-#AC_DEFINE(USE_GTK, if $gtk=true then 1 else 0 fi, [use GTK+ support])
- if test "$use_gtk" = "yes"; then
+ if test "$use_gtk" = "true"; then
   USE_GTK_TRUE=
   USE_GTK_FALSE='#'
 else
@@ -11907,7 +11909,7 @@ fi
 
 #AM_PATH_GTK_2_0($GTK_REQUIRED_VERSION,,AC_MSG_ERROR(windoe-default needs GTK+-2))
 
-if test "$use_gtk" != "no"; then :
+if test "$use_gtk" != "false"; then :
   # Check whether --enable-gtktest was given.
 if test "${enable_gtktest+set}" = set; then :
   enableval=$enable_gtktest;
@@ -12109,7 +12111,9 @@ fi
   if test "x$no_gtk" = x ; then
      { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes (version $gtk_config_major_version.$gtk_config_minor_version.$gtk_config_micro_version)" >&5
 $as_echo "yes (version $gtk_config_major_version.$gtk_config_minor_version.$gtk_config_micro_version)" >&6; }
-     use_gtk=yes
+
+$as_echo "#define USE_GTK 1" >>confdefs.h
+
   else
      { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
@@ -12161,10 +12165,10 @@ rm -f core conftest.err conftest.$ac_objext \
      fi
      GTK_CFLAGS=""
      GTK_LIBS=""
-     if test "$enable_gui" = "yes"; then :
+     if test "$use_gtk" = "true"; then :
   as_fn_error $? "GTK+-2.0 required, but not found." "$LINENO" 5
 else
-  use_gtk=no
+  u_gtk=no
 fi
 
   fi
@@ -15037,3 +15041,4 @@ if test -n "$ac_unrecognized_opts" && test "$enable_option_checking" != no; then
 $as_echo "$as_me: WARNING: unrecognized options: $ac_unrecognized_opts" >&2;}
 fi
 
+#(Makefile)

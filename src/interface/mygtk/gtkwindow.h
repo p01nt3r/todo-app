@@ -20,7 +20,7 @@
 #include <stdbool.h>
 #include <errno.h>
 
-#include <resources/constants.h>
+#include <src/resources/constants.h>
 
 #define DEFAULT_WINDOW_WIDTH_SIZE 768
 #define DEFAULT_WINDOW_HEIGHT_SIZE 500
