@@ -19,8 +19,8 @@
 #include <stdio.h>
 #include <errno.h>
 
-#include <resources/constants.h>
-#include <interface/console/consolewindow.h>
+#include "resources/constants.h"
+#include "interface/console/consolewindow.h"
 
 #ifdef USE_GTK
 #include <interface/mygtk/gtkwindow.h>

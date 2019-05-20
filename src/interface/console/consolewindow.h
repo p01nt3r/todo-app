@@ -19,6 +19,6 @@
 #include <stdio.h>
 #include <errno.h>
 
-#include <src/resources/constants.h>
+#include "../../resources/constants.h"
 
 int showConsoleMainWindow();

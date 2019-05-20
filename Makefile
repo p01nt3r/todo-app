@@ -1,3 +1,5 @@
+PREFIX = /usr/local
+dbg = -g
 #
 # Compiler
 CC=gcc
